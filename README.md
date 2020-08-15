@@ -1,5 +1,7 @@
 # OpenwrtCompileScript
 
+![CompileScript](doc/CompileScript.PNG) 
+
 ## 序言
 
 用于辅助Openwrt编译，但不会帮你完成整个编译过程，需要一点Openwrt编译基础
@@ -19,7 +21,8 @@ The script is made to work on these OS :
 - Ubuntu 16.4
 - Ubuntu 18.4 （首选，脚本基于此版本编写测试）
 - win10子系统（ubuntu 18.04 LTS）
-- Github Gitpod云编译(参考：https://www.right.com.cn/forum/thread-1573038-1-1.html)
+- （已放弃）Github Gitpod云编译(参考：https://www.right.com.cn/forum/thread-1573038-1-1.html)
+- Deepin 15.11桌面版（群友测试ok）
 
 ## Usage 使用方法
 
@@ -40,13 +43,59 @@ cd OpenwrtCompileScript && bash openwrt.sh
 
 `bash $openwrt`
 
-### 脚本详细使用方法
+## 命令行调用脚本
+```bash
+用法: bash $openwrt [文件夹] [命令] 
+文件夹目录结构：$HOME/Openwrt/你的文件夹/lede
 
-https://www.right.com.cn/forum/thread-345378-1-1.html
+可用命令:
+   make_j             执行make download 和make -j V=s 
+   new_source_make    新建一个文件夹下载你需要的源码并进行编译 
+   clean_make         执行make clean清理一下源码然后再进行编译
+   noclean_make       不执行make clean清理一下源码然后再进行编译
+   update_clean_make  执行make clean 并同步最新的源码 再进行编译
+   update_clean_make_kernel  编译完成以后执行make kernel_menuconfig($red危险操作)
+   update_script      将脚本同步到最新
+   help  查看帮助
 
-交流技术适当吹水群：667491026   （**拒绝大爷公子伸手党**)
+例子： 
+   bash $openwrt help   查看帮助 
+   bash $openwrt update_script 将脚本同步到最新
+   bash $openwrt 你的文件夹  clean_make    清理编译文件，再重新编译 
+   bash $openwrt 你的文件夹  update_clean_make  同步最新的源码清理编译文件再编译
+
+``` 
+![Command_Line](doc/Command_Line.PNG)
+
+### 脚本使用教程
+
+[OpenwrtCompileScript使用说明.pdf](OpenwrtCompileScript使用说明.pdf)
+
+|**脚本视频教程**|:交流技术适当吹水群：667491026   （**拒绝大爷公子伸手党**)
+
+
+
 
 ## 版本修改记录
+
+### ++2.9版本
+
+1. 修复变量错误
+2. 将插件默认选上我经常用的
+3. 添加天气预报
+4. 个别变量改名
+5. 修改固件生成名字，添加日期和时间，方便分类
+6. 重写source_if整个模块（大改动）添加dl文件检测代码
+7. 支持gitpod云编译
+8. 新增 git_reset回退功能
+9.  适配lienol源码
+10. 更新OpenwrtCompileScript使用说明.pdf
+11. 修复windows10子系统无法更新
+12. 增加回退选择，报错可以选择回退到编译选择界面，方便继续编译，而不是重新开始
+13. 脚本支持Deepin 15.11桌面版
+14. 支持N1制作镜像源码
+15. 增加help模块
+16. 脚本支持命令模式
 
 ### ++2.8版本
 
@@ -69,7 +118,7 @@ https://www.right.com.cn/forum/thread-345378-1-1.html
 
 ### ++2.7版本
 
-1. 修改脚本名字为《openwr.sh》不再以版本命名，以后执行脚本bash openwrt.sh即可
+1. 修改脚本名字为《openwrt.sh》不再以版本命名，以后执行脚本bash openwrt.sh即可
 2. 加入if判断是否源码下载成功
 3. Dl服务器下载增加一个参数，解决证书不信任问题
 4. 增加脚本描述文本
